@@ -1,6 +1,6 @@
 class Postaldata:
 
-    def __init__(self, country=None, name=None, street=None, num_house=None, city=None, state=None, zip=None, phone=None, sec_code=None, address_det=None):
+    def __init__(self, country="", name="", street="", num_house="", city="", state="", zip="", phone="", sec_code="", address_det=""):
         self.country = country
         self.name = name
         self.street = street
