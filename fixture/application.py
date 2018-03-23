@@ -1,21 +1,12 @@
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
-from selenium.webdriver.common.action_chains import ActionChains
-import time
+from fixture.session import SessionHelper
 
 class Application:
-
     def  __init__(self):
         self.wd = webdriver.Firefox(executable_path=r'C:\Users\User\OWASP ZAP\webdriver\windows\64\geckodriver.exe')
         self.wd.implicitly_wait(30)
-
-    def log_out(self):
-        wd = self.wd
-        log_out_drop_down = wd.find_element_by_xpath("//*[@id='root']/div/header/div/div/div[3]/div/div/span/div")
-        hover = ActionChains(wd).move_to_element(log_out_drop_down)
-        hover.perform()
-        wd.find_element_by_xpath("//*[@id='root']/div/header/div/div/div[3]/div/div/span/div/div/a").click()
-        time.sleep(5)
+        self.session = SessionHelper(self)
 
     def fill_in_user_data_form(self, postaldata):
         wd = self.wd
@@ -69,18 +60,6 @@ class Application:
     def open_home_page(self):
         wd =self.wd
         wd.get("http://skinstock.gamingdev.io/")
-
-    def log_in(self, username, password):
-        wd = self.wd
-        self.open_home_page()
-        wd.find_element_by_xpath("//div[@id='root']/div/header/div/div/div[3]/a/button").click()
-        wd.find_element_by_id("steamAccountName").click()
-        wd.find_element_by_id("steamAccountName").clear()
-        wd.find_element_by_id("steamAccountName").send_keys(username)
-        wd.find_element_by_id("steamPassword").click()
-        wd.find_element_by_id("steamPassword").clear()
-        wd.find_element_by_id("steamPassword").send_keys(password)
-        wd.find_element_by_id("imageLogin").click()
 
     def destroy(self):
         self.wd.quit()
